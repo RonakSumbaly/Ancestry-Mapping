@@ -9,7 +9,7 @@ library(trio)
 threshold = 0.7
 
 # function to plot linkage disequilibrium between SNPs
-LD.plot = function(ld.mat, color = heat.colors(50), title="Linkage Disequilibrium"){
+LD.plot = function(ld.mat, color = heat.colors(10), title="Linkage Disequilibrium"){
   break.points = 0:length(color)/length(color)
   mar.orig = (par.orig = par(c("mar", "las", "mfrow")))$mar
   oma = c(2, 1, 1, 2)
@@ -41,11 +41,13 @@ while (end <= dim(diploid)[2] & start < end) {
   start = start + 1000
   end = end + 1000
   if (end > dim(diploid)[2]) end = dim(diploid)[2]
+  LD.plot(linkage.disequilibrium)
+  
 }
 correlated.snps = unique(correlated.snps)
 
 # plot LD of last SNP set
-LD.plot(linkage.disequilibrium)
+
 
 pruned.data = subset.data.frame(diploid, select = -(which(colnames(diploid) %in% correlate.snp2)))
 update.snp.count = dim(pruned.data)[2]
